@@ -144,3 +144,37 @@ server
 include /www/server/panel/vhost/nginx/*.conf;
 }
 ```
+
+# 出现问题
+
+如果Docker拉取镜像出现问题，请检查Docker服务是否开启
+
+## 检查Docker状态
+
+```shell
+systemctl status docker
+```
+
+## 开启Docker服务
+
+```shell
+systemctl start docker
+```
+
+## 开机自启Docker
+
+```shell
+systemctl enable docker
+```
+
+## 关闭Docker服务
+
+```shell
+systemctl stop docker
+```
+
+## 重启Docker服务
+
+```shell
+systemctl restart docker
+```
