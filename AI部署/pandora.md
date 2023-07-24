@@ -145,6 +145,33 @@ include /www/server/panel/vhost/nginx/*.conf;
 }
 ```
 
+# 一些常用指令
+
+## 查看容器
+
+```shell
+列出正在运行容器：docker ps
+列出所有容器：docker ps -a
+```
+
+## 停止容器
+
+```
+docker stop [容器ID或容器名称]
+```
+
+## 启动容器
+
+```shell
+docker start [容器ID或容器名称]
+```
+
+## 重启容器
+
+```shell
+docker restart [容器ID或容器名称]
+```
+
 # 出现问题
 
 如果Docker拉取镜像出现问题，请检查Docker服务是否开启
@@ -178,3 +205,57 @@ systemctl stop docker
 ```shell
 systemctl restart docker
 ```
+
+# 后期的一些场景
+
+## 场景1---每次拉取镜像tag都是latest，想拉取最新的时候，又想把之前的镜像存起来。
+
+查看镜像
+
+```shell
+docker images
+
+REPOSITORY          TAG       IMAGE ID       CREATED       SIZE
+pengzhile/pandora   latest    afd2b9c7baae   11 days ago   256MB
+```
+
+先把原来的镜像重命名存起来
+
+```shell
+docker tag 镜像id pengzhile/pandora:标签(TAG)
+```
+
+删除本地docker中的这个镜像
+
+```shell
+要用的指令：
+docker images 镜像名(REPOSITORY):标签(TAG)
+我们使用的指令：以下两个指令均可，第一个默认删除标签为latest
+docker images 镜像名
+docker images 镜像名:latest
+```
+
+拉取新镜像
+
+```shell
+docker pull pengzhile/pandora
+```
+
+如果有需求就让这个新镜像也改个标签（多少版本）
+
+```shell
+最终效果
+REPOSITORY          TAG       IMAGE ID       CREATED       SIZE
+pengzhile/pandora   1.3.0     211f49b77c2c   3 hours ago   255MB
+pengzhile/pandora   1.2.8     afd2b9c7baae   11 days ago   256MB
+```
+
+**运行的指令也需要修改一下要加上标签，例如下面**
+
+```shell
+docker run -e PANDORA_CLOUD=cloud -e PANDORA_SERVER=0.0.0.0:8899 -p 8899:8899 -d pengzhile/pandora:1.3.0
+
+
+docker run -e PANDORA_CLOUD=cloud -e PANDORA_SERVER=0.0.0.0:8899 -p 127.0.0.1:8899:8899 -d pengzhile/pandora:1.3.0
+```
+
