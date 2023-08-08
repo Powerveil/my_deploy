@@ -4,6 +4,20 @@
 https://github.com/pengzhile/pandora
 ```
 
+下面几行与本文无关（为了让我快速找到指令，不想往下翻了）
+
+因为我用的服务器短时的，有时候忘记续费，每次连接新的服务器就会出现
+
+**WARNING! The remote SSH server rejected X11 forwarding request.**
+
+看着不舒服
+
+```shell
+原因：X11 forwarding依赖xorg-x11-xauth软件包，需要先安装xorg-x11-xauth软件包。
+解决方案(只提供这一种)：yum install xorg-x11-xauth
+然后重新连接查看效果
+```
+
 # Docker部署
 
 ## 安装Docker命令
